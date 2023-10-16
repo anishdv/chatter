@@ -1,5 +1,5 @@
 const socket = io();
-let namec='';
+let namec = "";
 let textarea = document.querySelector("#textarea");
 let messageArea = document.querySelector(".message__area");
 do {
@@ -20,6 +20,7 @@ function sendMessage(message) {
   appendMessage(msg, "outgoing");
   textarea.value = "";
   socket.emit("message", msg);
+  scrollToBottom();
 }
 
 function appendMessage(msg, type) {
@@ -37,4 +38,9 @@ function appendMessage(msg, type) {
 
 socket.on("message", (msg) => {
   appendMessage(msg, "incoming");
+  scrollToBottom();
 });
+
+function scrollToBottom() {
+  messageArea.scrollTop = messageArea.scrollHeight;
+}
